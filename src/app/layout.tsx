@@ -7,6 +7,7 @@ import "./globals.css";
 import { QueryProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { SessionProvider } from "@/providers/session-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -114,6 +115,7 @@ export default async function RootLayout({
           <QueryProvider>
             <ThemeProvider>
               <MotionConfig reducedMotion="user">{children}</MotionConfig>
+              <Analytics />
             </ThemeProvider>
           </QueryProvider>
         </SessionProvider>
