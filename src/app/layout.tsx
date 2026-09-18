@@ -3,6 +3,7 @@ import { Inter, Sora, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { headers } from "next/headers";
 import { MotionConfig } from "framer-motion";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { QueryProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -117,6 +118,7 @@ export default async function RootLayout({
             </ThemeProvider>
           </QueryProvider>
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   );
