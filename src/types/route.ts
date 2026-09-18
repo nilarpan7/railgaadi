@@ -7,6 +7,8 @@ export interface RouteData {
   polyline: GeoJSON.Feature<GeoJSON.LineString>;
   stations: RouteStation[];
   totalDistance: number; // km
+  /** `'demo'` means the geometry is a synthesized fallback, not the real track. */
+  dataSource?: 'live' | 'demo';
 }
 
 export interface RouteStation {

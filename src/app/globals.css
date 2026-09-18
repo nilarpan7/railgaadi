@@ -1,26 +1,1074 @@
+@import "maplibre-gl/dist/maplibre-gl.css";
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   RailGaadi Design System
+   Warm editorial light mode · deep aurora dark mode
+   Tokens are raw CSS variables; @theme inline maps them to
+   Tailwind utilities (bg-surface, text-text-muted, …).
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Canvas & surfaces */
+  --background: #f6f2ed;
+  --background-deep: #efe8e0;
+  --foreground: #17161a;
+  --surface: #ffffff;
+  --surface-alt: #f1ebe3;
+  --surface-hover: #e9e2d8;
+  --surface-raised: #ffffff;
+  --surface-sunken: #ece5db;
+
+  /* Type */
+  --text-primary: #17161a;
+  --text-secondary: #5d5a63;
+  --text-muted: #948f9b;
+  --text-inverse: #fbf9f6;
+
+  /* Brand */
+  --accent: #e0530b;
+  --accent-hover: #c74506;
+  --accent-active: #a83a05;
+  --accent-light: #fff2e8;
+  --accent-ring: rgba(224, 83, 11, 0.32);
+  --accent-glow: rgba(224, 83, 11, 0.28);
+  --accent-2: #f59e0b;
+  --accent-3: #db2777;
+  --accent-blue: #2563eb;
+  --accent-blue-hover: #1d4ed8;
+  --accent-teal: #0d9488;
+
+  /* Semantic */
+  --success: #15803d;
+  --success-light: #eefbf2;
+  --warning: #b45309;
+  --warning-light: #fdf6e7;
+  --error: #c81e1e;
+  --error-light: #fdf0f0;
+  --info: #1d4ed8;
+  --info-light: #eef2ff;
+
+  /* Lines */
+  --border: #e4dbd0;
+  --border-light: #efe8e0;
+  --border-strong: #d3c8ba;
+
+  /* Depth */
+  --shadow-color: 24 20 16;
+  --shadow-a: 0.05;
+  --shadow-b: 0.08;
+  --shadow-c: 0.12;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: 20px;
+
+  /* Ambient light blobs behind hero sections */
+  --aurora-1: rgba(224, 83, 11, 0.22);
+  --aurora-2: rgba(245, 158, 11, 0.2);
+  --aurora-3: rgba(37, 99, 235, 0.14);
+  --grid-line: rgba(23, 22, 26, 0.055);
+  --noise-opacity: 0.028;
+
+  /* Tracking console */
+  --tracking-bg: #f2f4f7;
+  --tracking-surface: #ffffff;
+
+  color-scheme: light;
 }
 
+.dark {
+  --background: #08090f;
+  --background-deep: #05060a;
+  --foreground: #eceaf2;
+  --surface: #12141f;
+  --surface-alt: #0d0f18;
+  --surface-hover: #1b1e2d;
+  --surface-raised: #171a27;
+  --surface-sunken: #0a0b12;
+
+  --text-primary: #f2f0f7;
+  --text-secondary: #a7a3b4;
+  --text-muted: #74707f;
+  --text-inverse: #0b0c12;
+
+  --accent: #fb7a1e;
+  --accent-hover: #fd9142;
+  --accent-active: #e56a12;
+  --accent-light: rgba(251, 122, 30, 0.13);
+  --accent-ring: rgba(251, 122, 30, 0.38);
+  --accent-glow: rgba(251, 122, 30, 0.42);
+  --accent-2: #fbbf24;
+  --accent-3: #f472b6;
+  --accent-blue: #60a5fa;
+  --accent-blue-hover: #93c5fd;
+  --accent-teal: #2dd4bf;
+
+  --success: #34d399;
+  --success-light: rgba(52, 211, 153, 0.12);
+  --warning: #fbbf24;
+  --warning-light: rgba(251, 191, 36, 0.12);
+  --error: #f87171;
+  --error-light: rgba(248, 113, 113, 0.12);
+  --info: #818cf8;
+  --info-light: rgba(129, 140, 248, 0.12);
+
+  --border: #232635;
+  --border-light: #1a1c28;
+  --border-strong: #333748;
+
+  --shadow-color: 0 0 0;
+  --shadow-a: 0.32;
+  --shadow-b: 0.44;
+  --shadow-c: 0.6;
+
+  --glass-bg: rgba(18, 20, 31, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-blur: 22px;
+
+  --aurora-1: rgba(251, 122, 30, 0.26);
+  --aurora-2: rgba(244, 114, 182, 0.16);
+  --aurora-3: rgba(56, 189, 248, 0.18);
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --noise-opacity: 0.05;
+
+  --tracking-bg: #08090f;
+  --tracking-surface: #12141f;
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   Tailwind v4 theme mapping
+   ============================================================ */
 @theme inline {
   --color-background: var(--background);
+  --color-background-deep: var(--background-deep);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+  --color-accent-light: var(--accent-light);
+  --color-accent-ring: var(--accent-ring);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-hover: var(--accent-blue-hover);
+  --color-accent-teal: var(--accent-teal);
+
+  --color-success: var(--success);
+  --color-success-light: var(--success-light);
+  --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
+  --color-error: var(--error);
+  --color-error-light: var(--error-light);
+  --color-info: var(--info);
+  --color-info-light: var(--info-light);
+
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-border-strong: var(--border-strong);
+
+  --color-tracking-bg: var(--tracking-bg);
+  --color-tracking-surface: var(--tracking-surface);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --radius-3xl: 36px;
+  --radius-full: 9999px;
+
+  --shadow-2xs: 0 1px 1px rgb(var(--shadow-color) / var(--shadow-a));
+  --shadow-xs: 0 1px 2px rgb(var(--shadow-color) / var(--shadow-a));
+  --shadow-sm: 0 1px 3px rgb(var(--shadow-color) / var(--shadow-a)),
+    0 1px 2px -1px rgb(var(--shadow-color) / var(--shadow-a));
+  --shadow-md: 0 4px 14px -2px rgb(var(--shadow-color) / var(--shadow-b)),
+    0 2px 6px -2px rgb(var(--shadow-color) / var(--shadow-a));
+  --shadow-lg: 0 12px 32px -6px rgb(var(--shadow-color) / var(--shadow-b)),
+    0 4px 10px -4px rgb(var(--shadow-color) / var(--shadow-a));
+  --shadow-xl: 0 24px 60px -12px rgb(var(--shadow-color) / var(--shadow-c)),
+    0 8px 20px -8px rgb(var(--shadow-color) / var(--shadow-b));
+  --shadow-2xl: 0 40px 90px -20px rgb(var(--shadow-color) / var(--shadow-c));
+  --shadow-glow: 0 0 0 1px var(--accent-ring), 0 8px 32px var(--accent-glow);
+
+  --animate-fade-in: fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-slide-down: slide-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scale-in: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-aurora: aurora 22s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-gradient-pan: gradient-pan 6s linear infinite;
+  --animate-shine: shine 2.6s ease-in-out infinite;
+  --animate-blink: blink 1.4s steps(2, start) infinite;
+  --animate-marquee: marquee 34s linear infinite;
+  --animate-marquee-slow: marquee 60s linear infinite;
+  --animate-track-flow: track-flow 1.2s linear infinite;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -220% 0;
+  }
+  100% {
+    background-position: 220% 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes aurora {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6%, -4%, 0) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-5%, 5%, 0) scale(0.94);
+  }
+  100% {
+    transform: translate3d(3%, 2%, 0) scale(1.06);
+  }
+}
+
+@keyframes gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  60%,
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes track-flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
+    font-variant-ligatures: contextual;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent-ring);
+    color: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+    background-clip: content-box;
+  }
+}
+
+/* ============================================================
+   Custom utilities (Tailwind v4 @utility)
+   ============================================================ */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility mb-safe {
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility pl-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+@utility pr-safe {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+@utility ml-safe {
+  margin-left: env(safe-area-inset-left, 0px);
+}
+
+@utility mr-safe {
+  margin-right: env(safe-area-inset-right, 0px);
+}
+
+/* Perspective helpers for 3D tilt cards */
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@utility backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Gradient text that respects the active theme accent */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--accent) 0%,
+    var(--accent-2) 42%,
+    var(--accent-3) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility text-gradient-subtle {
+  background-image: linear-gradient(
+    180deg,
+    var(--text-primary) 0%,
+    color-mix(in srgb, var(--text-primary) 55%, transparent) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  /* Fallback for browsers without color-mix(in oklab): keep the text legible */
+  @supports not (background-clip: text) {
+    color: var(--text-primary);
+    -webkit-text-fill-color: currentcolor;
+  }
+}
+
+/* Numeric tables that shouldn't jitter while live-updating */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ============================================================
+   Component-level composites
+   ============================================================ */
+
+/* --- Glass --- */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-nav {
+  background: color-mix(in srgb, var(--background) 72%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* --- Premium card: hairline ring + soft lift + top sheen --- */
+.card-premium {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    box-shadow 0.45s var(--ease-out-expo),
+    border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.card-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 45%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-premium:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+  box-shadow: var(--shadow-lg);
+}
+
+.card-premium:hover::before {
+  opacity: 1;
+}
+
+/* --- Conic gradient border, animated on hover --- */
+.gradient-border {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radius-2xl);
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 0deg,
+    var(--accent) 70deg,
+    var(--accent-2) 140deg,
+    transparent 210deg,
+    transparent 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+  animation: border-spin 4s linear infinite;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* --- Shine sweep for CTAs --- */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+
+.shine:hover::after {
+  animation: shine 0.9s var(--ease-out-expo);
+}
+
+/* --- Gradients --- */
+.accent-gradient {
+  background: linear-gradient(
+    118deg,
+    var(--accent-active) 0%,
+    var(--accent) 45%,
+    var(--accent-2) 100%
+  );
+}
+
+.accent-gradient-animated {
+  background: linear-gradient(
+    118deg,
+    var(--accent-active),
+    var(--accent),
+    var(--accent-2),
+    var(--accent),
+    var(--accent-active)
+  );
+  background-size: 300% 100%;
+  animation: gradient-pan 8s linear infinite;
+}
+
+.warm-gradient {
+  background: linear-gradient(
+    168deg,
+    var(--background) 0%,
+    var(--surface-alt) 100%
+  );
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      color-mix(in srgb, var(--accent) 10%, transparent) 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--background) 0%,
+      var(--surface-alt) 55%,
+      var(--background) 100%
+    );
+}
+
+.tracking-gradient {
+  background: linear-gradient(
+    180deg,
+    var(--tracking-bg) 0%,
+    var(--background) 100%
+  );
+}
+
+/* --- Ambient backdrops --- */
+.aurora-bg {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.9;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 0%,
+    #000 40%,
+    transparent 100%
+  );
+}
+
+.dot-pattern {
+  background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --- Skeleton --- */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-alt) 20%,
+    var(--surface-hover) 50%,
+    var(--surface-alt) 80%
+  );
+  background-size: 220% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* --- Live status dot with expanding halo --- */
+.live-dot {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--success);
+}
+
+.live-dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--success);
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+/* --- Marquee track --- */
+.marquee-mask {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+/* ============================================================
+   MapLibre theming
+   ============================================================ */
+.maplibregl-popup-content {
+  background: var(--surface) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 14px 16px !important;
+  box-shadow: var(--shadow-xl) !important;
+  border: 1px solid var(--border) !important;
+  font-family: var(--font-inter), system-ui, sans-serif !important;
+}
+
+.maplibregl-popup-tip {
+  border-top-color: var(--surface) !important;
+  border-bottom-color: var(--surface) !important;
+}
+
+.maplibregl-popup-close-button {
+  color: var(--text-muted) !important;
+  font-size: 18px !important;
+  padding: 2px 8px !important;
+}
+
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: #e6e6ea !important;
+  border-radius: 9999px !important;
+}
+
+.maplibregl-ctrl-attrib a {
+  color: #cbd5e1 !important;
+}
+
+/* ============================================================
+   Uber / Rapido Style Top-Down Navigation Vehicle Marker
+   ============================================================ */
+.train-marker {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+/* Uber/Rapido GPS Live Sonar / Radar Ping Waves */
+.train-marker__radar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(234, 88, 12, 0.45) 0%,
+    rgba(234, 88, 12, 0.15) 50%,
+    transparent 75%
+  );
+  border: 1.5px solid rgba(234, 88, 12, 0.6);
+  animation: uber-radar-ping 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.train-marker__radar--2 {
+  animation-delay: 1.2s;
+}
+
+@keyframes uber-radar-ping {
+  0% {
+    width: 14px;
+    height: 14px;
+    opacity: 0.95;
+    border-width: 2px;
+  }
+  70% {
+    width: 68px;
+    height: 68px;
+    opacity: 0.35;
+    border-width: 1px;
+  }
+  100% {
+    width: 84px;
+    height: 84px;
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+/* Vehicle Container (Rotates with Bearing/Heading) */
+.train-marker__icon {
+  position: relative;
+  z-index: 2;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  transition: transform 260ms cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center center;
+}
+
+.train-marker__icon svg {
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 10px rgba(234, 88, 12, 0.5));
+}
+
+/* Forward Headlight Conic Beams (Shooting forward from train nose) */
+.train-headlight-beam {
+  position: absolute;
+  bottom: calc(50% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 58px;
+  pointer-events: none;
+  z-index: 1;
+  background: conic-gradient(
+    from 145deg at 50% 100%,
+    transparent 0deg,
+    rgba(254, 240, 138, 0.45) 25deg,
+    rgba(255, 255, 255, 0.8) 35deg,
+    rgba(254, 240, 138, 0.45) 45deg,
+    transparent 70deg
+  );
+  filter: blur(1.5px);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 15%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 15%, transparent 95%);
+  opacity: 0.85;
+  animation: headlight-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes headlight-pulse {
+  from {
+    opacity: 0.75;
+    transform: translateX(-50%) scaleY(0.95);
+  }
+  to {
+    opacity: 0.95;
+    transform: translateX(-50%) scaleY(1.05);
+  }
+}
+
+/* Motion Particle Slipstream Trail (behind vehicle) */
+.train-marker__trail {
+  position: absolute;
+  top: calc(50% + 14px);
+  left: 50%;
+  width: 3.5px;
+  height: 48px;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to bottom,
+    rgba(234, 88, 12, 0.85),
+    rgba(249, 115, 22, 0.4) 40%,
+    transparent
+  );
+  opacity: 0.9;
+  filter: blur(0.6px);
+}
+
+.train-marker--moving .train-marker__trail {
+  animation: trail-pulse 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes trail-pulse {
+  from {
+    height: 40px;
+    opacity: 0.7;
+  }
+  to {
+    height: 56px;
+    opacity: 1;
+  }
+}
+
+.train-marker--moving .train-marker__icon svg {
+  animation: train-uber-glow 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes train-uber-glow {
+  0% {
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45))
+      drop-shadow(0 0 8px rgba(234, 88, 12, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55))
+      drop-shadow(0 0 18px rgba(234, 88, 12, 0.95));
+  }
+}
+
+.station-marker-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   Motion preferences
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .card-premium:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Mobile & reduced-transparency
+   ============================================================ */
+
+/* Tighter glass blur on mobile to save GPU cycles */
+@media (max-width: 768px) {
+  .glass-nav {
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+
+  .glass-card {
+    backdrop-filter: blur(12px) saturate(130%);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+  }
+
+  .aurora-blob {
+    filter: blur(40px);
+  }
+}
+
+/* Users who prefer reduced transparency get a solid background instead of glass */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-nav {
+    background: var(--surface) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .glass-card {
+    background: var(--surface) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }

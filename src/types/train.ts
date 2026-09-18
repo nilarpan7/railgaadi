@@ -91,4 +91,10 @@ export interface LiveStatus {
   updatedAt: string; // ISO timestamp
   stationStatuses: StationStatus[];
   currentPlatform: number | null;
+  /**
+   * Where this payload came from. `'demo'` means the upstream call failed and
+   * the response is generated sample data — the UI must say so rather than
+   * present it as a real running train.
+   */
+  dataSource?: 'live' | 'demo';
 }

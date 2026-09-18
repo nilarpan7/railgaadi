@@ -1,6 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# =============================================================
+# RailGaadi (Next.js 16 + TypeScript) — .gitignore
+# =============================================================
 
-# dependencies
+# ---------- Dependencies ----------
 /node_modules
 /.pnp
 .pnp.*
@@ -9,33 +11,76 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+*.tsbuildinfo
+next-env.d.ts
 
-# testing
-/coverage
-
-# next.js
+# ---------- Next.js build output ----------
 /.next/
 /out/
-
-# production
 /build
+tsconfig.tsbuildinfo
 
-# misc
-.DS_Store
-*.pem
+# ---------- Environment variables ----------
+# Never commit real secrets. Only commit a safe example template.
+.env
+.env.*
+!.env.example
+# Local-only overrides (highest precedence, machine-specific)
+.env.local
+.env.*.local
 
-# debug
+# ---------- Testing / Coverage ----------
+/coverage
+/playwright-report/
+/test-results/
+*.lcov
+
+# ---------- Logs ----------
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+pnpm-debug.log*
+logs/
+*.log
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
+# ---------- Vercel ----------
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# ---------- Docker ----------
+# Ignore runtime artifacts; Dockerfile and .dockerignore are tracked.
+docker-compose.override.yml
+
+# ---------- Map debugging scratchpad (maptest/) ----------
+# Playwright scripts, HTML fixtures, local node_modules, PNG screenshots.
+# Not part of the app; exclude entirely to keep the repo clean.
+/maptest/
+
+# ---------- Dev scratch ----------
+/implementation_plan.md
+
+# ---------- Misc / OS ----------
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.pem
+*.p12
+*.key
+*.crt
+
+# ---------- Editor / IDE ----------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.pytest_cache/
