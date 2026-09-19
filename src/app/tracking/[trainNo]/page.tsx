@@ -126,7 +126,11 @@ export default function TrackingPage({
             <div className="card-premium rounded-3xl p-8 text-center my-12">
               <ErrorState
                 title="Train telemetry unavailable"
-                message={`Could not retrieve live tracking data for train #${trainNo}. Please verify the train number or try searching again.`}
+                message={
+                  error instanceof Error
+                    ? error.message
+                    : `Could not retrieve live tracking data for train #${trainNo}. Please verify the train number or try searching again.`
+                }
                 onRetry={() => refetch()}
               />
             </div>

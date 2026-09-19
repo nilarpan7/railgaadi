@@ -56,7 +56,20 @@ async function apiFetch<T>(
         });
 
         if (!response.ok) {
-          throw new Error(`API Error: ${response.status} ${response.statusText}`);
+          let errDetail = `API Error: ${response.status} ${response.statusText}`;
+          try {
+            const errJson = await response.json();
+            if (errJson?.error?.message) {
+              errDetail = errJson.error.message;
+            } else if (typeof errJson?.error === 'string') {
+              errDetail = errJson.error;
+            } else if (errJson?.message) {
+              errDetail = errJson.message;
+            }
+          } catch {
+            // response was not JSON
+          }
+          throw new Error(errDetail);
         }
 
         return await response.json();
